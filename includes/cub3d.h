@@ -6,7 +6,7 @@
 /*   By: kkafmagh <kkafmagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 14:43:32 by kkafmagh          #+#    #+#             */
-/*   Updated: 2025/11/01 16:29:18 by kkafmagh         ###   ########.fr       */
+/*   Updated: 2025/11/01 20:35:24 by kkafmagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,16 +94,18 @@ typedef struct s_image
 	int					bpp;
 	int					line_length;
 	int					endian;
+	int					width;
+	int					height;
 }						t_image;
 
 typedef struct s_player
 {
 	double				pos_x;
 	double				pos_y;
-	float				dir_x;
-	float				dir_y;
-	float				plane_x;
-	float				plane_y;
+	double				dir_x;
+	double				dir_y;
+	double				plane_x;
+	double				plane_y;
 	char				dir;
 }						t_player;
 
@@ -114,6 +116,20 @@ typedef struct s_pos_player
 	float				plane_x;
 	float				plane_y;
 }						t_pos_player;
+
+typedef struct s_dist
+{
+	double				side_dist_x;
+	double				side_dist_y;
+	double				delta_dist_x;
+	double				delta_dist_y;
+	int					side;
+	int					map_x;
+	int					map_y;
+	int					step_x;
+	int					step_y;
+	int					hit;
+}						t_dist;
 
 typedef struct s_data
 {

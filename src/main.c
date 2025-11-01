@@ -14,19 +14,19 @@ void	*ft_memset(void *s, int c, size_t n)
 	return (s);
 }
 
-int	file_name(char **argv)
-{
-	int	len;
+// int	file_name(char **argv)
+// {
+// 	int	len;
 
-	len = ft_strlen(argv[1]);
-	if (len < 4)
-		return (0);
-	if (argv[1][ft_strlen(argv[1]) - 1] != 'b' || argv[1][ft_strlen(argv[1])
-		- 2] != 'u' || argv[1][ft_strlen(argv[1]) - 3] != 'c'
-		|| argv[1][ft_strlen(argv[1]) - 4] != '.')
-		return (0);
-	return (1);
-}
+// 	len = ft_strlen(argv[1]);
+// 	if (len < 4)
+// 		return (0);
+// 	if (argv[1][ft_strlen(argv[1]) - 1] != 'b' || argv[1][ft_strlen(argv[1])
+// 		- 2] != 'u' || argv[1][ft_strlen(argv[1]) - 3] != 'c'
+// 		|| argv[1][ft_strlen(argv[1]) - 4] != '.')
+// 		return (0);
+// 	return (1);
+// }
 
 int	file_exists(char *path)
 {
@@ -125,7 +125,6 @@ void	flood_fill(char **map, int i, int j, int rows, int cols)
 
 int	handle_key_press(int keycode, t_data *data)
 {
-	// printf("Key pressed: %d\n", keycode); // ✅ Ajoute ceci
 	if (keycode == XK_w)
 		data->keys.up = 1;
 	if (keycode == XK_s)
@@ -188,98 +187,96 @@ int	is_valid_position(t_data *data, int x, int y)
 	return (1);
 }
 
+void	go_up(int new_x, int new_y, t_player *p, t_data *data)
+{
+	new_x = (int)(p->pos_x + p->dir_x * MOVE_SPEED);
+	new_y = (int)(p->pos_y + p->dir_y * MOVE_SPEED);
+	if (is_valid_position(data, new_x, (int)p->pos_y))
+		p->pos_x += p->dir_x * MOVE_SPEED;
+	if (is_valid_position(data, (int)p->pos_x, new_y))
+		p->pos_y += p->dir_y * MOVE_SPEED;
+}
+
+void	go_down(int new_x, int new_y, t_player *p, t_data *data)
+{
+	new_x = (int)(p->pos_x - p->dir_x * MOVE_SPEED);
+	new_y = (int)(p->pos_y - p->dir_y * MOVE_SPEED);
+	if (is_valid_position(data, new_x, (int)p->pos_y))
+		p->pos_x -= p->dir_x * MOVE_SPEED;
+	if (is_valid_position(data, (int)p->pos_x, new_y))
+		p->pos_y -= p->dir_y * MOVE_SPEED;
+}
+
+void	go_left(int new_x, int new_y, t_player *p, t_data *data)
+{
+	new_x = (int)(p->pos_x - p->plane_x * MOVE_SPEED);
+	new_y = (int)(p->pos_y - p->plane_y * MOVE_SPEED);
+	if (is_valid_position(data, new_x, (int)p->pos_y))
+		p->pos_x -= p->plane_x * MOVE_SPEED;
+	if (is_valid_position(data, (int)p->pos_x, new_y))
+		p->pos_y -= p->plane_y * MOVE_SPEED;
+}
+
+void	go_right(int new_x, int new_y, t_player *p, t_data *data)
+{
+	new_x = (int)(p->pos_x + p->plane_x * MOVE_SPEED);
+	new_y = (int)(p->pos_y + p->plane_y * MOVE_SPEED);
+	if (is_valid_position(data, new_x, (int)p->pos_y))
+		p->pos_x += p->plane_x * MOVE_SPEED;
+	if (is_valid_position(data, (int)p->pos_x, new_y))
+		p->pos_y += p->plane_y * MOVE_SPEED;
+}
+
 void	update_player(t_data *data)
 {
 	t_player	*p;
 	int			new_x;
 	int			new_y;
 
+	new_x = 0;
+	new_y = 0;
 	p = &data->player;
-	// Avancer
 	if (data->keys.up)
-	{
-		new_x = (int)(p->pos_x + p->dir_x * MOVE_SPEED);
-		new_y = (int)(p->pos_y + p->dir_y * MOVE_SPEED);
-		if (is_valid_position(data, new_x, (int)p->pos_y))
-			p->pos_x += p->dir_x * MOVE_SPEED;
-		if (is_valid_position(data, (int)p->pos_x, new_y))
-			p->pos_y += p->dir_y * MOVE_SPEED;
-	}
-	// Reculer
+		go_up(new_x, new_y, p, data);
 	if (data->keys.down)
-	{
-		new_x = (int)(p->pos_x - p->dir_x * MOVE_SPEED);
-		new_y = (int)(p->pos_y - p->dir_y * MOVE_SPEED);
-		if (is_valid_position(data, new_x, (int)p->pos_y))
-			p->pos_x -= p->dir_x * MOVE_SPEED;
-		if (is_valid_position(data, (int)p->pos_x, new_y))
-			p->pos_y -= p->dir_y * MOVE_SPEED;
-	}
-	// Strafe gauche (A)
+		go_down(new_x, new_y, p, data);
 	if (data->keys.left)
-	{
-		new_x = (int)(p->pos_x - p->plane_x * MOVE_SPEED);
-		new_y = (int)(p->pos_y - p->plane_y * MOVE_SPEED);
-		if (is_valid_position(data, new_x, (int)p->pos_y))
-			p->pos_x -= p->plane_x * MOVE_SPEED;
-		if (is_valid_position(data, (int)p->pos_x, new_y))
-			p->pos_y -= p->plane_y * MOVE_SPEED;
-	}
-	// Strafe droite (D)
+		go_left(new_x, new_y, p, data);
 	if (data->keys.right)
-	{
-		new_x = (int)(p->pos_x + p->plane_x * MOVE_SPEED);
-		new_y = (int)(p->pos_y + p->plane_y * MOVE_SPEED);
-		if (is_valid_position(data, new_x, (int)p->pos_y))
-			p->pos_x += p->plane_x * MOVE_SPEED;
-		if (is_valid_position(data, (int)p->pos_x, new_y))
-			p->pos_y += p->plane_y * MOVE_SPEED;
-	}
-	// Rotation
+		go_right(new_x, new_y, p, data);
 	if (data->keys.rotate_left)
 		rotate_player(p, -ROT_SPEED);
 	if (data->keys.rotate_right)
 		rotate_player(p, ROT_SPEED);
 }
 
-// int	handle_esc(int key, t_data *data)
+// int	check_line(char *str)
 // {
-// 	if (key == XK_Escape)
+// 	int	i;
+
+// 	i = 0;
+// 	while (str[i] && str[i] != '\n')
 // 	{
-// 		printf("=====================TEST=====================\n");
-// 		exit(1);
+// 		i++;
 // 	}
-// 	mlx_clear_window(data->connection, data->window);
-// 	mlx_put_image_to_window(data->connection, data->window, data->img.img,
-// 		data->player.pos_x, data->player.pos_y);
-// 	return (1);
+// 	return (i);
 // }
 
-int	check_line(char *str)
-{
-	int	i;
+// void	put_pixel(char *addr, int x, int y, int color, int bits_per_pixel,
+// 		int line_length)
+// {
+// 	char	*dst;
 
-	i = 0;
-	while (str[i] && str[i] != '\n')
-	{
-		i++;
-	}
-	return (i);
-}
-
-void	put_pixel(char *addr, int x, int y, int color, int bits_per_pixel,
-		int line_length)
-{
-	char	*dst;
-
-	dst = addr + (y * line_length + x * (bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
-}
+// 	dst = addr + (y * line_length + x * (bits_per_pixel / 8));
+// 	*(unsigned int *)dst = color;
+// }
 
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 {
 	char	*dst;
 
+	if (!img || !img->addr)
+		return ;
 	if (x < 0 || y < 0 || x >= 1024 || y >= 512)
 		return ;
 	dst = img->addr + (y * img->line_length + x * (img->bpp / 8));
@@ -296,12 +293,39 @@ int	map_height(char **map)
 	return (i);
 }
 
+void	color_floor_ceiling(t_data *data)
+{
+	int ceiling_color;
+	int floor_color;
+	int y = 0;
+	int x2 = 0;
+	ceiling_color = (data->ceiling_color.r << 16) | (data->ceiling_color.g << 8) | data->ceiling_color.b;
+	floor_color = (data->floor_color.r << 16) | (data->floor_color.g << 8) | data->floor_color.b;
+	// Effacer l'écran : plafond + sol
+	y = 0;
+	while (y < 512)
+	{
+		x2 = 0;
+		while (x2 < 1024)
+		{
+			if (y < 512 / 2)
+				my_mlx_pixel_put(&data->img, x2, y, ceiling_color);
+			else
+				my_mlx_pixel_put(&data->img, x2, y, floor_color);
+			x2++;
+		}
+		y++;
+	}
+}
+
+
+
 int	render_frame(t_data *param)
 {
 	t_data		*data;
 	int			x;
 	int			y;
-	int			x2;
+	// int			x2;
 	char		*tex_pixel;
 	t_texture	*tex;
 	int			color;
@@ -326,29 +350,30 @@ int	render_frame(t_data *param)
 	int			tex_x;
 	int			tex_y;
 	int			d;
-	int			ceiling_color;
-	int			floor_color;
+	// int			ceiling_color;
+	// int			floor_color;
 
 	data = (t_data *)param;
 	update_player(data);
-	// Convertir les couleurs RGB en format entier (0xRRGGBB)
-	ceiling_color = (data->ceiling_color.r << 16) | (data->ceiling_color.g << 8) | data->ceiling_color.b;
-	floor_color = (data->floor_color.r << 16) | (data->floor_color.g << 8) | data->floor_color.b;
-	// Effacer l'écran : plafond + sol
-	y = 0;
-	while (y < 512)
-	{
-		x2 = 0;
-		while (x2 < 1024)
-		{
-			if (y < 512 / 2)
-				my_mlx_pixel_put(&data->img, x2, y, ceiling_color);
-			else
-				my_mlx_pixel_put(&data->img, x2, y, floor_color);
-			x2++;
-		}
-		y++;
-	}
+	color_floor_ceiling(data);
+	// // Convertir les couleurs RGB en format entier (0xRRGGBB)
+	// ceiling_color = (data->ceiling_color.r << 16) | (data->ceiling_color.g << 8) | data->ceiling_color.b;
+	// floor_color = (data->floor_color.r << 16) | (data->floor_color.g << 8) | data->floor_color.b;
+	// // Effacer l'écran : plafond + sol
+	// y = 0;
+	// while (y < 512)
+	// {
+	// 	x2 = 0;
+	// 	while (x2 < 1024)
+	// 	{
+	// 		if (y < 512 / 2)
+	// 			my_mlx_pixel_put(&data->img, x2, y, ceiling_color);
+	// 		else
+	// 			my_mlx_pixel_put(&data->img, x2, y, floor_color);
+	// 		x2++;
+	// 	}
+	// 	y++;
+	// }
 	// Raycasting pour chaque colonne
 	x = 0;
 	while (x < 1024)
@@ -495,8 +520,6 @@ int	main(int argc, char **argv)
 	t_map_line	*current;
 	int			i;
 
-	// int		fd;
-	// char	**mappy;
 	if (argc != 2)
 	{
 		printf("Usage: %s <map_file.cub>\n", argv[0]);
@@ -518,29 +541,12 @@ int	main(int argc, char **argv)
 	data.map_height = get_map_height(&data.map_data);
 	printf("Textures:\n");
 	print_textures(&data);
-	// print_colors(&data);
-	// print_map(&data);
-	// return (free_data(&data), 0);
-	// ft_memset(&data, 0, sizeof(t_data));
-	// fd = open(argv[1], O_RDONLY);
-	// if (fd < 0)
-	// {
-	// 	perror("Erreur lors de l'ouverture du fichier");
-	// 	return (1);
-	// }
-	// mappy = parse_map(fd);
-	// if (!mappy)
 	if (!data.map_data.head)
 	{
-		printf(/* stderr,  */ "Erreur lors du parsing de la map\n");
+		printf("Erreur lors du parsing de la map\n");
 		free_data(&data);
 		return (1);
 	}
-	// data.map = mappy;
-	// while(data.map_data.head->line)
-	// {
-	// 	printf("%s \n",data.map_data.head->line);
-	// }
 	i = 0;
 	data.map = malloc(sizeof(char *) * (data.map_height + 1));
 	if (!data.map)
@@ -564,23 +570,13 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	data.map[i] = NULL;
-	// i = 0;
-	// while(data.map[i])
-	// {
-	// 	printf("****************%s", data.map[i]);
-	// 	i++;
-	// }
-	starter(/* data.map,  */ &data.player, &data.map_data);
-	// printf("8888888888888888888888888888888888888888888888\n");
-	// printf("Player position: x = %f, y = %f\n", data.player.pos_x,
-	// 	data.player.pos_y);
+	starter(&data.player, &data.map_data);
 	data.connection = mlx_init();
 	if (!data.connection)
 		return (1);
 	data.window = mlx_new_window(data.connection, 1024, 512, "Cub3d");
 	if (!data.window)
 		return (1);
-	// printf("******%s*******\n", data.tex_north.addr);
 	if (!file_exists("north.xpm") || !file_exists("south.xpm")
 		|| !file_exists("east.xpm") || !file_exists("west.xpm"))
 	{
@@ -630,17 +626,10 @@ int	main(int argc, char **argv)
 	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bpp,
 			&data.img.line_length, &data.img.endian);
 	// mlx_hook(data.window, 2, 1L << 0, handle_esc, &data);
-	mlx_hook(data.window, 2, 1L << 0, handle_key_press, &data); // Key press
-	// printf("******************************\n");
-	// printf("%d\n", data.floor_color.r);
-	// printf("%d\n", data.floor_color.g);
-	// printf("%d\n", data.floor_color.b);
-	// printf("************%s *****\n", data.img.addr);
+	mlx_hook(data.window, 2, 1L << 0, handle_key_press, &data);   // Key press
 	mlx_hook(data.window, 3, 1L << 1, handle_key_release, &data); // Key release
 	mlx_loop_hook(data.connection, render_frame, &data);
 	mlx_hook(data.window, 17, 0, close_window, &data); // Key release
-	// printf("before\n");
 	mlx_loop(data.connection);
-	// printf("after\n");
 	return (0);
 }
