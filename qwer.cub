@@ -1,0 +1,60 @@
+Key pressed: 100
+==476144== Invalid read of size 4
+==476144==    at 0x4052C2: render_frame (main.c:599)
+==476144==    by 0x4059FC: mlx_loop (in /home/kkafmagh/cub3d/cub3d)
+==476144==    by 0x40496B: main (main.c:462)
+==476144==  Address 0x513cffc is 28 bytes after an unallocated block of size 4,003,648 in arena "client"
+
+
+= 
+==476144== Process terminating with default action of signal 4 (SIGILL)
+==476144==  Illegal opcode at address 0x4051EF
+==476144==    at 0x4051EF: render_frame (main.c:596)
+==476144==    by 0x4059FC: mlx_loop (in /home/kkafmagh/cub3d/cub3d)
+==476144==    by 0x40496B: main (main.c:462)
+
+
+
+
+
+
+vex amd64->IR: unhandled instruction bytes: 0x67 0xF 0xB9 0x40 0xC 0x8B 0x85 0xCC 0xFE 0xFF
+vex amd64->IR:   REX=0 REX.W=0 REX.R=0 REX.X=0 REX.B=0
+vex amd64->IR:   VEX=0 VEX.L=0 VEX.nVVVV=0x0 ESC=0F
+vex amd64->IR:   PFX.66=0 PFX.F2=0 PFX.F3=0
+==477375== valgrind: Unrecognised instruction at address 0x4051ef.
+==477375==    at 0x4051EF: render_frame (main.c:596)
+==477375==    by 0x4059FC: mlx_loop (in /home/kkafmagh/cub3d/cub3d)
+==477375==    by 0x40496B: main (main.c:462)
+==477375== Your program just tried to execute an instruction that Valgrind
+==477375== did not recognise.  There are two possible reasons for this.
+==477375== 1. Your program has a bug and erroneously jumped to a non-code
+==477375==    location.  If you are running Memcheck and you just saw a
+==477375==    warning about a bad jump, it's probably your program's fault.
+==477375== 2. The instruction is legitimate but Valgrind doesn't handle it,
+==477375==    i.e. it's Valgrind's fault.  If you think this is the case or
+==477375==    you are not sure, please let us know and we'll try to fix it.
+==477375== Either way, Valgrind will now raise a SIGILL signal which will
+==477375== probably kill your program.
+==477375== 
+==477375== Process terminating with default action of signal 4 (SIGILL)
+==477375==  Illegal opcode at address 0x4051EF
+==477375==    at 0x4051EF: render_frame (main.c:596)
+==477375==    by 0x4059FC: mlx_loop (in /home/kkafmagh/cub3d/cub3d)
+==477375==    by 0x40496B: main (main.c:462)
+==477375== 
+==477375== HEAP SUMMARY:
+==477375==     in use at exit: 112,107 bytes in 123 blocks
+==477375==   total heap usage: 1,688 allocs, 1,565 frees, 169,590 bytes allocated
+==477375== 
+==477375== LEAK SUMMARY:
+==477375==    definitely lost: 0 bytes in 0 blocks
+==477375==    indirectly lost: 0 bytes in 0 blocks
+==477375==      possibly lost: 0 bytes in 0 blocks
+==477375==    still reachable: 112,107 bytes in 123 blocks
+==477375==         suppressed: 0 bytes in 0 blocks
+==477375== Rerun with --leak-check=full to see details of leaked memory
+==477375== 
+==477375== For lists of detected and suppressed errors, rerun with: -s
+==477375== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+[1]    477375 illegal hardware instruction (core dumped)  valgrind ./cub3d

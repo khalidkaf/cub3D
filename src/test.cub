@@ -1,0 +1,17 @@
+NO ./test.xpm
+CE 225,100,         2
+S ./test.xpm
+
+
+F 220,100,0
+
+
+
+
+EA ./test.xpm
+W ./test.xpm
+
+111111
+1E1111
+110000
+111111
