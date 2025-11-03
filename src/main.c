@@ -6,7 +6,7 @@
 /*   By: kkafmagh <kkafmagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 18:35:56 by kkafmagh          #+#    #+#             */
-/*   Updated: 2025/11/03 11:30:47 by kkafmagh         ###   ########.fr       */
+/*   Updated: 2025/11/03 12:21:43 by kkafmagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,6 @@ void	load_text(t_data *data)
 			data->tex_east_path, &data->tex_east.width, &data->tex_east.height);
 	data->tex_west.img = mlx_xpm_file_to_image(data->connection,
 			data->tex_west_path, &data->tex_west.width, &data->tex_west.height);
-	// if(!data->tex_north.img)
-	// {
-	// 	free_data_bad_text(data);
-	// 	printf("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n");
-	// }
 }
 
 int	wall_text(t_data *data)
@@ -121,8 +116,8 @@ int	main(int argc, char **argv)
 		return (1);
 	starter(&data.player, &data.map_data);
 	data.connection = mlx_init();
-	if(check_text(&data) == 1)
-		return 1;
+	if (check_text(&data) == 1)
+		return (1);
 	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bpp,
 			&data.img.line_length, &data.img.endian);
 	mlx_hook(data.window, 2, 1L << 0, handle_key_press, &data);

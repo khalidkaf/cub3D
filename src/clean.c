@@ -6,7 +6,7 @@
 /*   By: kkafmagh <kkafmagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 11:05:43 by sachanai          #+#    #+#             */
-/*   Updated: 2025/11/03 11:30:10 by kkafmagh         ###   ########.fr       */
+/*   Updated: 2025/11/03 12:21:05 by kkafmagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,6 @@ void	free_data(t_data *data)
 	free_path(data, cur, next);
 	data->map_data.head = NULL;
 	data->map_data.tail = NULL;
-	printf("=================\n");
-	printf("=================%s\n", data->map[i]);
-	printf("=================\n");
 	while (data->map[i])
 	{
 		free(data->map[i]);
@@ -87,41 +84,5 @@ void	free_data_sans_map(t_data *data)
 	free_path(data, cur, next);
 	data->map_data.head = NULL;
 	data->map_data.tail = NULL;
-	// printf("=================%s\n", data->map[i]);
-	// printf("=================\n");
-	// while (data->map[i])
-	// {
-	// 	free(data->map[i]);
-	// 	i++;
-	// }
-	// free(data->map);
-	// mlx_clear_window(data->connection, data->window);
-	// mlx_destroy_window(data->connection, data->window);
-	// mlx_destroy_display(data->connection);
 	free(data->connection);
 }
-
-
-// void	free_data_bad_text(t_data *data)
-// {
-// 	int			i;
-// 	t_map_line	*cur;
-// 	t_map_line	*next;
-
-// 	cur = NULL;
-// 	next = NULL;
-// 	i = 0;
-// 	free_path(data, cur, next);
-// 	data->map_data.head = NULL;
-// 	data->map_data.tail = NULL;
-// 	while (data->map[i])
-// 	{
-// 		free(data->map[i]);
-// 		i++;
-// 	}
-// 	free(data->map);
-// 	mlx_clear_window(data->connection, data->window);
-// 	mlx_destroy_window(data->connection, data->window);
-// 	mlx_destroy_display(data->connection);
-// 	free(data->connection);
-// }
