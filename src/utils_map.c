@@ -6,7 +6,7 @@
 /*   By: kkafmagh <kkafmagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 12:06:45 by sachanai          #+#    #+#             */
-/*   Updated: 2025/10/21 14:57:09 by kkafmagh         ###   ########.fr       */
+/*   Updated: 2025/11/02 18:36:51 by kkafmagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,14 @@ int	is_valid_map_char(char c)
 int	is_border(int x, int y, int width, int height)
 {
 	return (x == 0 || y == 0 || x == width - 1 || y == height - 1);
+}
+
+int	map_height(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+		i++;
+	return (i);
 }

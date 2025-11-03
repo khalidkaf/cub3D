@@ -6,7 +6,7 @@
 /*   By: kkafmagh <kkafmagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 13:43:14 by kkafmagh          #+#    #+#             */
-/*   Updated: 2025/11/01 13:43:28 by kkafmagh         ###   ########.fr       */
+/*   Updated: 2025/11/02 17:03:33 by kkafmagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,18 @@ int	ft_iswhitespace(char c)
 		|| c == '\f')
 		return (1);
 	return (0);
+}
+
+void	*ft_memset(void *s, int c, size_t n)
+{
+	unsigned char	*tmp;
+
+	tmp = s;
+	while (n)
+	{
+		*tmp = (unsigned char)c;
+		tmp++;
+		n--;
+	}
+	return (s);
 }

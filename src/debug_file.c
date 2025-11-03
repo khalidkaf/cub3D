@@ -6,7 +6,7 @@
 /*   By: kkafmagh <kkafmagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 11:06:36 by sachanai          #+#    #+#             */
-/*   Updated: 2025/10/21 16:52:45 by kkafmagh         ###   ########.fr       */
+/*   Updated: 2025/11/03 12:12:01 by kkafmagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,18 @@ void	print_textures(t_data *data)
 
 void	print_colors(t_data *data)
 {
-	printf("Floor color: R=%d   G=%d   B=%d\n",
-		data->floor_color.r, data->floor_color.g, data->floor_color.b);
-	printf("Ceiling color: R=%d   G=%d   B=%d\n",
-		data->ceiling_color.r, data->ceiling_color.g, data->ceiling_color.b);
+	printf("Floor color: R=%d   G=%d   B=%d\n", data->floor_color.r,
+		data->floor_color.g, data->floor_color.b);
+	printf("Ceiling color: R=%d   G=%d   B=%d\n", data->ceiling_color.r,
+		data->ceiling_color.g, data->ceiling_color.b);
 }
 
 void	print_map(t_data *data)
 {
 	t_map_line	*cur;
 
-	printf("Map dimensions: width = %d, height = %d\n",
-		data->map_width, data->map_height);
+	printf("Map dimensions: width = %d, height = %d\n", data->map_width,
+		data->map_height);
 	printf("Map:\n");
 	cur = data->map_data.head;
 	while (cur)
@@ -57,7 +57,8 @@ void	print_map(t_data *data)
 
 int	error_and_debug(const char *msg, int x, int y, char c)
 {
-	printf("DEBUG: About to return error at x=%d y=%d \
-		for char '%c' (ascii: %d)\n", x, y, c, c);
+	(void)y;
+	(void)c;
+	(void)x;
 	return (print_map_error(msg));
 }

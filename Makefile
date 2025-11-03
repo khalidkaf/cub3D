@@ -19,6 +19,14 @@ MLX_LIB = minilibx-linux/libmlx.a
 INCLUDES = -Iincludes  -I./minilibx-linux -I./$(LIBFT_DIR)
 
 SRC = $(SRC_DIR)/main.c \
+	  $(SRC_DIR)/pos_start.c \
+	  $(SRC_DIR)/keyboard.c \
+	  $(SRC_DIR)/move_2d.c \
+	  $(SRC_DIR)/move_map.c \
+	  $(SRC_DIR)/rendering.c \
+	  $(SRC_DIR)/checking.c \
+	  $(SRC_DIR)/pose_texture.c \
+	  $(SRC_DIR)/update_player.c \
       $(SRC_DIR)/get_next_line.c \
       $(SRC_DIR)/clean.c \
       $(SRC_DIR)/collect_id.c \

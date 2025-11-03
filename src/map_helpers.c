@@ -6,7 +6,7 @@
 /*   By: kkafmagh <kkafmagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 15:47:43 by sachanai          #+#    #+#             */
-/*   Updated: 2025/11/01 14:09:18 by kkafmagh         ###   ########.fr       */
+/*   Updated: 2025/11/03 12:10:05 by kkafmagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	get_map_at_index(t_map_data *map_data, int x, int y)
 	if (x < 0 || y < 0)
 		return (' ');
 	cur = map_data->head;
-	if (!cur && !cur->line)
+	if (!cur || !cur->line)
 		return (' ');
 	i = 0;
 	while (cur && i < y)
@@ -48,6 +48,8 @@ char	get_map_at_index(t_map_data *map_data, int x, int y)
 		cur = cur->next;
 		i++;
 	}
+	if (!cur || !cur->line)
+		return (' ');
 	len = ft_strlen(cur->line);
 	if (x >= len)
 		return (' ');

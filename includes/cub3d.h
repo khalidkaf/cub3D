@@ -6,7 +6,7 @@
 /*   By: kkafmagh <kkafmagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 14:43:32 by kkafmagh          #+#    #+#             */
-/*   Updated: 2025/11/01 20:35:24 by kkafmagh         ###   ########.fr       */
+/*   Updated: 2025/11/03 11:30:17 by kkafmagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,19 @@ typedef struct s_dist
 	int					step_x;
 	int					step_y;
 	int					hit;
+	double				camera_x;
+	double				ray_dir_x;
+	double				ray_dir_y;
+	double				perp_wall_dist;
+	double				wall_x;
+	int					line_height;
+	int					draw_start;
+	int					draw_end;
+	int					tex_x;
+	int					tex_y;
+	int					d;
+	int					x;
+	int					y;
 }						t_dist;
 
 typedef struct s_data
@@ -216,6 +229,7 @@ int						validate_map(t_data *data);
 int						is_border(int x, int y, int width, int height);
 int						error_and_debug(const char *msg, int x, int y, char c);
 void					free_data(t_data *data);
+void					free_data_sans_map(t_data *data);
 void					print_textures(t_data *data);
 void					print_colors(t_data *data);
 void					print_map(t_data *data);
@@ -224,5 +238,41 @@ int						ft_atoi(const char *str);
 int						is_in_set(char c, char const *set);
 int						ft_iswhitespace(char c);
 int						ft_strcmp(const char *s1, const char *s2);
+void					starter(t_player *player, t_map_data *map);
+int						file_exists(char *path);
+void					*ft_memset(void *s, int c, size_t n);
+int						handle_key_press(int keycode, t_data *data);
+int						handle_key_release(int keycode, t_data *data);
+int						is_valid_position(t_data *data, int x, int y);
+void					go_up(int new_x, int new_y, t_player *p, t_data *data);
+void					go_down(int new_x, int new_y, t_player *p,
+							t_data *data);
+void					go_left(int new_x, int new_y, t_player *p,
+							t_data *data);
+void					go_right(int new_x, int new_y, t_player *p,
+							t_data *data);
+int						map_height(char **map);
+void					rotate_player(t_player *player, float angle);
+void					update_player(t_data *data);
+void					my_mlx_pixel_put(t_image *img, int x, int y, int color);
+void					color_floor_ceiling(t_data *data);
+void					dda(t_dist *dist, t_data *data);
+int						close_window(t_data *data);
+void					pre_text(t_dist *dist, t_data *data, t_texture **tex);
+void					chose_text(t_dist *dist, t_data *data, t_texture **tex);
+void					color_floor_ceiling(t_data *data);
+void					dda(t_dist *dist, t_data *data);
+void					move_map(t_dist *dist, t_data *data);
+void					edge_tex_y(t_dist *dist, t_data *data, t_texture *tex);
+void					coor_x(t_dist *dist, t_data *data, t_texture *tex);
+void					rendering(t_dist *dist, t_data *data, t_texture *tex);
+int						render_frame(t_data *param);
+int						first_check(int argc, char **argv);
+int						sec_check(char **argv, t_data *data);
+void					load_text(t_data *data);
+int						wall_text(t_data *data);
+int						check_map(char **argv, t_data *data,
+							t_map_line *current);
+int						check_text(t_data *data);
 
 #endif

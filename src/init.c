@@ -6,7 +6,7 @@
 /*   By: kkafmagh <kkafmagh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 08:35:34 by sarah             #+#    #+#             */
-/*   Updated: 2025/11/01 12:01:12 by kkafmagh         ###   ########.fr       */
+/*   Updated: 2025/11/02 14:50:44 by kkafmagh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ int	init_data(t_data *data)
 	data->map_data.tail = NULL;
 	data->map_width = 0;
 	data->map_height = 0;
+	data->map_width = get_map_width(&data->map_data);
+	data->map_height = get_map_height(&data->map_data);
 	return (SUCCESS);
 }

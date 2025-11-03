@@ -78,3 +78,14 @@ int	is_in_set(char c, char const *set)
 	}
 	return (0);
 }
+
+int	file_exists(char *path)
+{
+	int	fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	close(fd);
+	return (1);
+}
